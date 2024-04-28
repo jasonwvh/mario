@@ -68,7 +68,9 @@ function init() {
     pipe: new Audio('sounds/pipe.wav'),
     itemAppear: new Audio('sounds/itemAppear.wav'),
     powerup: new Audio('sounds/powerup.wav'),
-    stomp: new Audio('sounds/stomp.wav')
+    stomp: new Audio('sounds/stomp.wav'),
+    yay: new Audio('sounds/yay.mp3'),
+    cheer: new Audio('sounds/cheer.mp3')
   };
   Mario.oneone();
   lastTime = Date.now();
@@ -159,6 +161,9 @@ function updateEntities(dt, gameTime) {
   level.pipes.forEach (function(pipe) {
     pipe.update(dt);
   });
+  level.ladders.forEach(function (ladder) {
+    ladder.update(dt, gameTime);
+  });
 }
 
 //scan for collisions
@@ -179,6 +184,10 @@ function checkCollisions() {
   level.pipes.forEach (function(pipe) {
     pipe.checkCollisions();
   });
+  level.ladders.forEach (function(ladder) {
+    ladder.checkCollisions();
+  });
+  
 }
 
 //draw the game!
@@ -206,7 +215,9 @@ function render() {
     renderEntity(enemy);
   });
 
-
+  level.ladders.forEach (function(ladder) {
+    renderEntity(ladder);
+  });
 
   fireballs.forEach(function(fireball) {
     renderEntity(fireball);

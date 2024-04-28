@@ -1,11 +1,11 @@
-var oneone = Mario.oneone = function() {
+var onetwo = Mario.onetwo = function() {
   //The things that need to be passed in are basically just dependent on what
   //tileset we're in, so it makes more sense to just make one variable for that, so
   //TODO: put as much of this in the Level object definition as possible.
   level = new Mario.Level({
     levelNumber: 1,
-    playerPos: [56,192],
-    loader: Mario.oneone,
+    playerPos: [35,192],
+    loader: Mario.onetwo,
     background: "#7974FF",
     scrolling: true,
     invincibility: [144, 192, 240],
@@ -22,6 +22,15 @@ var oneone = Mario.oneone = function() {
     houseDoorTopSprite: new Mario.Sprite('sprites/tiles.png', [192, 16],[16,16],0),
     houseDoorBottomSprite: new Mario.Sprite('sprites/tiles.png', [208, 16],[16,16],0),
 
+    LPipeSprites:[
+      new Mario.Sprite('sprites/tiles.png', [32,128],[16,16],0),
+      new Mario.Sprite('sprites/tiles.png', [32,144],[16,16],0),
+      new Mario.Sprite('sprites/tiles.png', [48,128],[16,16],0),
+      new Mario.Sprite('sprites/tiles.png', [48,144],[16,16],0),
+      new Mario.Sprite('sprites/tiles.png', [64,128],[16,16],0),
+      new Mario.Sprite('sprites/tiles.png', [64,144],[16,16],0),
+    ],
+    
     brickSprite: new Mario.Sprite('sprites/tiles.png', [16, 0], [16,16], 0),
     brickBounceSprite: new Mario.Sprite('sprites/tiles.png',[32,0],[16,16],0),
     rubbleSprite: function () {
@@ -31,6 +40,7 @@ var oneone = Mario.oneone = function() {
     superShroomSprite: new Mario.Sprite('sprites/items.png', [0,0], [16,16], 0),
     fireFlowerSprite: new Mario.Sprite('sprites/items.png', [0,32], [16,16], 20, [0,1,2,3]),
     starSprite: new Mario.Sprite('sprites/items.png', [0,48], [16,16], 20, [0,1,2,3]),
+    ringSprite: new Mario.Sprite('sprites/items.png', [0,186], [16,16], 20, [0]),
     pipeLEndSprite: new Mario.Sprite('sprites/tiles.png', [0, 128], [16,16], 0),
     pipeREndSprite: new Mario.Sprite('sprites/tiles.png', [16, 128], [16,16], 0),
     pipeLMidSprite: new Mario.Sprite('sprites/tiles.png', [0, 144], [16,16], 0),
@@ -126,6 +136,29 @@ var oneone = Mario.oneone = function() {
   });
 
   //interactable terrain
+  level.buildHouse(0, 11);
+  level.buildHouse(0, 12);
+  level.buildHouse(1, 11);
+  level.buildHouse(1, 12);
+  level.buildHouse(3, 11);
+  level.buildHouse(3, 12);
+  level.buildHouse(4, 11);
+  level.buildHouse(4, 12);
+  level.buildHouseDoorBottom (2, 12);
+  level.buildHouseDoorTop (2, 11);
+  level.buildHouseRoof(0, 10);
+  level.buildhouseRoofTop(1, 10);
+  level.buildhouseRoofTop(2, 10);
+  level.buildhouseRoofTop(3, 10);
+  level.buildHouseRoof(4, 10);
+  level.buildHouseLeftWindow (1, 9);
+  level.buildHouseRoof(1, 8);
+  level.buildHouseRoof(2, 8);
+  level.buildHouseRoof(3, 8);
+  level.buildHouseRightWindow (3, 9);
+  level.buildHouse(2, 9);
+
+  //interactable terrain
   level.putQBlock(16, 9, new Mario.Bcoin([256, 144]));
   level.putBrick(20, 9, null);
   level.putQBlock(21, 9, new Mario.Mushroom([336, 144]));
@@ -136,118 +169,199 @@ var oneone = Mario.oneone = function() {
   level.putPipe(28, 13, 2);
   level.putPipe(38, 13, 3);
   level.putPipe(46, 13, 4);
-  level.putRealPipe(57, 9, 4, "DOWN", Mario.oneonetunnel);
-  level.putBrick(77, 9, null);
-  level.putQBlock(78, 9, new Mario.Mushroom([1248, 144]));
-  level.putBrick(79, 9, null);
-  level.putBrick(80, 5, null);
-  level.putBrick(81, 5, null);
-  level.putBrick(82, 5, null);
-  level.putBrick(83, 5, null);
-  level.putBrick(84, 5, null);
-  level.putBrick(85, 5, null);
-  level.putBrick(86, 5, null);
-  level.putBrick(87, 5, null);
-  level.putBrick(91, 5, null);
-  level.putBrick(92, 5, null);
-  level.putBrick(93, 5, null);
-  level.putQBlock(94, 5, new Mario.Bcoin([1504, 80]));
-  level.putBrick(94, 9, null);
-  level.putBrick(100, 9, new Mario.Star([1600, 144]));
-  level.putBrick(101, 9, null);
-  level.putQBlock(105, 9, new Mario.Bcoin([1680, 144]));
-  level.putQBlock(108, 9, new Mario.Bcoin([1728, 144]));
-  level.putQBlock(108, 5, new Mario.Mushroom([1728, 80]));
-  level.putQBlock(111, 9, new Mario.Bcoin([1776, 144]));
-  level.putBrick(117, 9, null);
-  level.putBrick(120, 5, null);
-  level.putBrick(121, 5, null);
-  level.putBrick(122, 5, null);
-  level.putBrick(123, 5, null);
-  level.putBrick(128, 5, null);
-  level.putQBlock(129, 5, new Mario.Bcoin([2074, 80]));
-  level.putBrick(129, 9, null);
-  level.putQBlock(130, 5, new Mario.Bcoin([2080, 80]));
-  level.putBrick(130, 9, null);
-  level.putBrick(131, 5, null);
-  level.putWall(134, 13, 1);
-  level.putWall(135, 13, 2);
-  level.putWall(136, 13, 3);
-  level.putWall(137, 13, 4);
-  level.putWall(140, 13, 4);
-  level.putWall(141, 13, 3);
-  level.putWall(142, 13, 2);
-  level.putWall(143, 13, 1);
-  level.putWall(148, 13, 1);
-  level.putWall(149, 13, 2);
-  level.putWall(150, 13, 3);
-  level.putWall(151, 13, 4);
-  level.putWall(152, 13, 4);
-  level.putWall(155, 13, 4);
-  level.putWall(156, 13, 3);
-  level.putWall(157, 13, 2);
-  level.putWall(158, 13, 1);
-  level.putPipe(163, 13, 2);
-  level.putBrick(168, 9, null);
-  level.putBrick(169, 9, null);
-  level.putQBlock(170, 9, new Mario.Bcoin([2720, 144]));
-  level.putBrick(171, 9, null);
-  level.putPipe(179, 13, 2);
-  level.putWall(181, 13, 1);
-  level.putWall(182, 13, 2);
-  level.putWall(183, 13, 3);
-  level.putWall(184, 13, 4);
-  level.putWall(185, 13, 5);
-  level.putWall(186, 13, 6);
-  level.putWall(187, 13, 7);
-  level.putWall(188, 13, 8);
-  level.putWall(189, 13, 8);
-  level.putFlagpole(198);
+  // level.putBrick(77, 9, null);
+  // level.putQBlock(78, 9, new Mario.Mushroom([1248, 144]));
 
-  level.buildHouse(202, 11);
-  level.buildHouse(202, 12);
-  level.buildHouse(203, 11);
-  level.buildHouse(203, 12);
-  level.buildHouse(205, 11);
-  level.buildHouse(205, 12);
-  level.buildHouse(206, 11);
-  level.buildHouse(206, 12);
-  level.buildHouseDoorBottom (204, 12);
-  level.buildHouseDoorTop (204, 11);
-  level.buildHouseRoof(202, 10);
-  level.buildhouseRoofTop(203, 10);
-  level.buildhouseRoofTop(204, 10);
-  level.buildhouseRoofTop(205, 10);
-  level.buildHouseRoof(206, 10);
-  level.buildHouseLeftWindow (203, 9);
-  level.buildHouseRoof(203, 8);
-  level.buildHouseRoof(204, 8);
-  level.buildHouseRoof(205, 8);
-  level.buildHouseRightWindow (205, 9);
-  level.buildHouse(204, 9);
+  // e
+  level.putBrick(85, 4);
+  level.putBrick(86, 4);
+  level.putBrick(87, 4);
+  level.putBrick(85, 5);
+  level.putBrick(86, 5);
+  level.putBrick(87, 5);
+  level.putBrick(85, 6);
+  level.putBrick(86, 7);
+  level.putBrick(87, 7);
+  // l
+  level.putBrick(89, 4);
+  level.putBrick(89, 5);
+  level.putBrick(89, 6);
+  level.putBrick(89, 7);
+  level.putBrick(90, 7);
+  // level.putBrick(110, 7);
+  // a
+  level.putBrick(92, 4);
+  level.putBrick(93, 4);
+  level.putBrick(94, 4);
+  level.putBrick(94, 5);
+  level.putBrick(94, 6);
+  level.putBrick(93, 6);
+  level.putBrick(92, 6);
+  level.putBrick(92, 5);
+  level.putBrick(94, 7);
+  // i
+  level.putBrick(96, 4);
+  level.putBrick(96, 5);
+  level.putBrick(96, 6);
+  level.putBrick(96, 7);
+  // n
+  level.putBrick(98, 7);
+  level.putBrick(98, 6);
+  level.putBrick(98, 5);
+  level.putBrick(99, 4);
+  level.putBrick(100, 5);
+  level.putBrick(100, 6);
+  level.putBrick(100, 7);
+  // e
+  level.putBrick(102, 4);
+  level.putBrick(103, 4);
+  level.putBrick(104, 4);
+  level.putBrick(102, 5);
+  level.putBrick(103, 5);
+  level.putBrick(104, 5);
+  level.putBrick(102, 6);
+  level.putBrick(103, 7);
+  level.putBrick(104, 7);
 
-  
+  // w
+  level.putBrick(107, 4);
+  level.putBrick(107, 5);
+  level.putBrick(107, 6);
+  level.putBrick(108, 7);
+  level.putBrick(109, 6);
+  level.putBrick(109, 5);
+  level.putBrick(109, 4);
+  level.putBrick(110, 7);
+  level.putBrick(111, 6);
+  level.putBrick(111, 5);
+  level.putBrick(111, 4);
+  // i
+  level.putBrick(113, 4);
+  level.putBrick(113, 5);
+  level.putBrick(113, 6);
+  level.putBrick(113, 7);
+  // l
+  level.putBrick(115, 4);
+  level.putBrick(115, 5);
+  level.putBrick(115, 6);
+  level.putBrick(115, 7);
+  level.putBrick(116, 7);
+  // level.putBrick(110, 7);
+  // l
+  level.putBrick(118, 4);
+  level.putBrick(118, 5);
+  level.putBrick(118, 6);
+  level.putBrick(118, 7);
+  level.putBrick(119, 7);
+  // level.putBrick(114, 7);
+  // y
+  level.putBrick(122, 4);
+  level.putBrick(122, 5);
+  level.putBrick(123, 6);
+  level.putBrick(123, 7);
+  level.putBrick(124, 5);
+  level.putBrick(124, 4);
+  // o
+  level.putBrick(127, 4);
+  level.putBrick(126, 4);
+  level.putBrick(126, 5);
+  level.putBrick(126, 6);
+  level.putBrick(126, 7);
+  level.putBrick(127, 7);
+  level.putBrick(128, 7);
+  level.putBrick(128, 6);
+  level.putBrick(128, 5);
+  level.putBrick(128, 4);
+  // u
+  level.putBrick(130, 4);
+  level.putBrick(130, 5);
+  level.putBrick(130, 6);
+  level.putBrick(131, 7);
+  level.putBrick(132, 6);
+  level.putBrick(132, 5);
+  level.putBrick(132, 4);
+  // m
+  level.putBrick(135, 7);
+  level.putBrick(135, 6);
+  level.putBrick(135, 5);
+  level.putBrick(136, 4);
+  level.putBrick(137, 5);
+  level.putBrick(137, 6);
+  level.putBrick(137, 7);
+  level.putBrick(138, 4);
+  level.putBrick(139, 5);
+  level.putBrick(139, 6);
+  level.putBrick(139, 7);
+  // a
+  level.putBrick(141, 4);
+  level.putBrick(142, 4);
+  level.putBrick(143, 4);
+  level.putBrick(143, 5);
+  level.putBrick(143, 6);
+  level.putBrick(142, 6);
+  level.putBrick(141, 6);
+  level.putBrick(141, 5);
+  level.putBrick(143, 7);
+  // r
+  level.putBrick(145, 4);
+  level.putBrick(145, 5);
+  level.putBrick(145, 6);
+  level.putBrick(145, 7);
+  level.putBrick(146, 4);
+  // level.putBrick(146, 4);
+  // r
+  level.putBrick(148, 4);
+  level.putBrick(148, 5);
+  level.putBrick(148, 6);
+  level.putBrick(148, 7);
+  level.putBrick(149, 4);
+  // level.putBrick(146, 4);
+  // y
+  level.putBrick(151, 4);
+  level.putBrick(151, 5);
+  level.putBrick(152, 6);
+  level.putBrick(152, 7);
+  level.putBrick(153, 5);
+  level.putBrick(153, 4);
+  // m
+  level.putBrick(156, 7);
+  level.putBrick(156, 6);
+  level.putBrick(156, 5);
+  level.putBrick(157, 4);
+  level.putBrick(158, 5);
+  level.putBrick(158, 6);
+  level.putBrick(158, 7);
+  level.putBrick(159, 4);
+  level.putBrick(160, 5);
+  level.putBrick(160, 6);
+  level.putBrick(160, 7);
+  // e
+  level.putBrick(162, 4);
+  level.putBrick(163, 4);
+  level.putBrick(164, 4);
+  level.putBrick(162, 5);
+  level.putBrick(163, 5);
+  level.putBrick(164, 5);
+  level.putBrick(162, 6);
+  level.putBrick(163, 7);
+  level.putBrick(164, 7);
+
+  // ?
+  level.putBrick(166, 4);
+  level.putBrick(167, 4);
+  level.putBrick(168, 5);
+  level.putBrick(167, 6);
+  level.putBrick(166, 6);
+  level.putBrick(166, 7);
+  level.putQBlock(166, 9, new Mario.Ring([2656, 144]));
+
   //and enemies
   level.putGoomba(22, 12);
   level.putGoomba(40, 12);
-  level.putGoomba(50, 12);
-  level.putGoomba(51, 12);
-  level.putGoomba(82, 4);
-  level.putGoomba(84, 4);
-  level.putGoomba(100, 12);
-  level.putGoomba(102, 12);
-  level.putGoomba(114, 12);
-  level.putGoomba(115, 12);
-  level.putGoomba(122, 12);
-  level.putGoomba(123, 12);
-  level.putGoomba(125, 12);
-  level.putGoomba(126, 12);
-  level.putGoomba(170, 12);
-  level.putGoomba(172, 12);
-  level.putKoopa(35, 11);
 
   music.underground.pause();
   // music.overworld.currentTime = 0;
   music.overworld.play();
 };
+
 
